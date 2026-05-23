@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane prefHeight="550.0" prefWidth="350.0" style="-fx-background-color: white;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a.diccionario_examen.controller.LoginController">
+    <tabs>
+        <Tab text="Registro">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="471.0" prefWidth="350.0" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets bottom="20.0" left="25.0" right="25.0" top="20.0" />
+                            </padding>
+                            <children>
+
+                                <Label text="Nombre completo" textFill="#5e5e5e" />
+                                <TextField fx:id="txtNombreReg" promptText="Ej. Maria Lopez" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Label text="Correo" textFill="#5e5e5e">
+                                    <VBox.margin><Insets top="5.0" /></VBox.margin>
+                                </Label>
+                                <TextField fx:id="txtCorreoReg" promptText="correo@demo.local" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Label text="Usuario" textFill="#5e5e5e">
+                                    <VBox.margin><Insets top="5.0" /></VBox.margin>
+                                </Label>
+                                <TextField fx:id="txtUsuarioReg" promptText="usuario_unico" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Label text="Contraseña" textFill="#5e5e5e">
+                                    <VBox.margin><Insets top="5.0" /></VBox.margin>
+                                </Label>
+                                <PasswordField fx:id="txtPasswordReg" promptText="Minimo 6 caracteres" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Label text="Rol" textFill="#5e5e5e">
+                                    <VBox.margin><Insets top="5.0" /></VBox.margin>
+                                </Label>
+                                <ComboBox fx:id="cmbRolReg" prefWidth="120.0" promptText="CLIENT" style="-fx-background-color: #e6e6e6; -fx-border-color: #cccccc; -fx-border-radius: 3;">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="CLIENT" />
+                                            <String fx:value="ADMIN" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+
+                                <Button mnemonicParsing="false" onAction="#manejarRegistro" style="-fx-background-color: #1a365d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4;" text="Registrar usuario">
+                                    <VBox.margin><Insets top="15.0" /></VBox.margin>
+                                    <padding><Insets bottom="8.0" left="15.0" right="15.0" top="8.0" /></padding>
+                                </Button>
+
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+
+        <!-- ========================================== -->
+        <!-- PESTAÑA 2: LOGIN                           -->
+        <!-- ========================================== -->
+        <Tab text="Login">
+            <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="471.0" prefWidth="350.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <padding>
+                                <Insets bottom="20.0" left="25.0" right="25.0" top="30.0" />
+                            </padding>
+                            <children>
+
+                                <Label text="Usuario" textFill="#5e5e5e" />
+                                <TextField fx:id="txtUsuarioLogin" promptText="Tu nombre de usuario" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Label text="Contraseña" textFill="#5e5e5e">
+                                    <VBox.margin><Insets top="10.0" /></VBox.margin>
+                                </Label>
+                                <PasswordField fx:id="txtPasswordLogin" promptText="Tu contraseña secreta" style="-fx-background-color: white; -fx-border-color: #cccccc; -fx-border-radius: 3;" />
+
+                                <Button mnemonicParsing="false" onAction="#manejarLogin" style="-fx-background-color: #1a365d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 4;" text="Iniciar sesión">
+                                    <VBox.margin><Insets top="20.0" /></VBox.margin>
+                                    <padding><Insets bottom="8.0" left="15.0" right="15.0" top="8.0" /></padding>
+                                </Button>
+
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+
+    </tabs>
+</TabPane>
