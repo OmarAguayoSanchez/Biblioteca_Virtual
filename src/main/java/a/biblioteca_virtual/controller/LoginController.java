@@ -1,7 +1,7 @@
 package a.biblioteca_virtual.controller;
 
 import a.biblioteca_virtual.dao.IUsuarioDAO;
-import a.diccionario_examen.factory.DAOFactory;
+import a.biblioteca_virtual.factory.DAOFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
