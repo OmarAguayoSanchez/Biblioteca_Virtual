@@ -47,8 +47,11 @@ public class Editorial {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+<<<<<<< HEAD
     @Override
     public String toString() {
         return this.nombre;
     }
+=======
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
 }

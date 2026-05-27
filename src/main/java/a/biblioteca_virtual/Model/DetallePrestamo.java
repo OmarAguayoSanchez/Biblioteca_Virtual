@@ -9,9 +9,12 @@ public class DetallePrestamo {
     private LocalDate fechaDevolucionEsperada;
     private LocalDate fechaDevolucionReal;
     private String estado;
+<<<<<<< HEAD
     private String nombreUsuario;
     private String tituloLibro;
     private LocalDate fechaPrestamo;
+=======
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
 
     public DetallePrestamo() {
     }
@@ -64,6 +67,7 @@ public class DetallePrestamo {
     public void setFechaDevolucionReal(LocalDate fechaDevolucionReal) {
         this.fechaDevolucionReal = fechaDevolucionReal;
     }
+<<<<<<< HEAD
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -87,6 +91,8 @@ public class DetallePrestamo {
     public void setFechaPrestamo(LocalDate fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
+=======
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
 
     public String getEstado() {
         return estado;

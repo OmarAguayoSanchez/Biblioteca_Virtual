@@ -11,7 +11,11 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
     @Override
     public boolean insertar(DetallePrestamo detalle) {
         String sql = "INSERT INTO Detalle_Prestamo (id_prestamo, id_libro, fecha_devolucion_esperada, estado) VALUES (?, ?, ?, ?)";
+<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
+=======
+        try (Connection con = ConexionMySQL.getConnection();
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, detalle.getIdPrestamo());
@@ -29,7 +33,11 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
     @Override
     public boolean actualizarEstado(int idDetalle, String nuevoEstado, java.time.LocalDate fechaDevolucionReal) {
         String sql = "UPDATE Detalle_Prestamo SET estado=?, fecha_devolucion_real=? WHERE id_detalle=?";
+<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
+=======
+        try (Connection con = ConexionMySQL.getConnection();
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, nuevoEstado);
@@ -46,7 +54,11 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
     @Override
     public boolean eliminar(int idDetalle) {
         String sql = "DELETE FROM Detalle_Prestamo WHERE id_detalle=?";
+<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
+=======
+        try (Connection con = ConexionMySQL.getConnection();
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idDetalle);
             return ps.executeUpdate() > 0;
@@ -60,7 +72,11 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
     public List<DetallePrestamo> buscarPorPrestamo(int idPrestamo) {
         List<DetallePrestamo> lista = new ArrayList<>();
         String sql = "SELECT * FROM Detalle_Prestamo WHERE id_prestamo=?";
+<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
+=======
+        try (Connection con = ConexionMySQL.getConnection();
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idPrestamo);
@@ -76,6 +92,7 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
     @Override
     public List<DetallePrestamo> obtenerDetallesActivos() {
         List<DetallePrestamo> lista = new ArrayList<>();
+<<<<<<< HEAD
 
         // Consulta JOIN con el nombre de columna CORREGIDO (fecha_devolucion_esperada)
         String sql = "SELECT d.id_detalle, d.id_libro, d.fecha_devolucion_esperada, d.estado, " +
@@ -110,6 +127,16 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener detalles activos con JOIN: " + e.getMessage());
+=======
+        String sql = "SELECT * FROM Detalle_Prestamo WHERE estado = 'Activo' OR estado = 'Atrasado'";
+        try (Connection con = ConexionMySQL.getConnection();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) lista.add(mapearDetalle(rs));
+        } catch (SQLException e) {
+            System.err.println("Error al obtener detalles activos: " + e.getMessage());
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
         }
         return lista;
     }
@@ -127,4 +154,8 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         d.setEstado(rs.getString("estado"));
         return d;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
