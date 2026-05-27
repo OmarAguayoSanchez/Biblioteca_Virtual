@@ -74,6 +74,15 @@ public class ConexionMySQL {
     }
 
     /**
+     * Método auxiliar estático para mantener compatibilidad directa con los DAOs.
+     * Evita tener que escribir ConexionMySQL.getInstancia().getConexion() en cada consulta.
+     * @return El objeto Connection activo.
+     */
+    public static Connection getConnection() {
+        return getInstancia().getConexion();
+    }
+
+    /**
      * Cierra la conexión activa con la base de datos de manera segura.
      */
     public void cerrarConexion() {
