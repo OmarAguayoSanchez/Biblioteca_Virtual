@@ -69,8 +69,31 @@ public class ConexionMySQL {
      *
      * @return El objeto Connection activo.
      */
+    /**
+     * Permite acceder al objeto de conexión para realizar consultas u operaciones.
+     * Si la conexión fue cerrada previamente, la vuelve a abrir automáticamente.
+     *
+     * @return El objeto Connection activo.
+     */
     public Connection getConexion() {
+        try {
+            // Verificamos si la conexión es nula o si fue cerrada por algún DAO
+            if (conexion == null || conexion.isClosed()) {
+                conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al intentar restaurar la conexión: " + e.getMessage());
+        }
         return conexion;
+    }
+
+    /**
+     * Método auxiliar estático para mantener compatibilidad directa con los DAOs.
+     * Evita tener que escribir ConexionMySQL.getInstancia().getConexion() en cada consulta.
+     * @return El objeto Connection activo.
+     */
+    public static Connection getConnection() {
+        return getInstancia().getConexion();
     }
 
     /**

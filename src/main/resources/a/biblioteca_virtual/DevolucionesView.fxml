@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="600.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a.biblioteca_virtual.controller.DevolucionesController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+    <children>
+        <Label text="Recepción de Devoluciones">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <HBox spacing="10.0">
+            <children>
+                <TextField fx:id="txtBuscarPrestamo" promptText="Buscar por ID Libro, ISBN o Nombre Usuario..." HBox.hgrow="ALWAYS" style="-fx-pref-height: 35;" />
+                <Button fx:id="btnBuscar" mnemonicParsing="false" onAction="#buscarPrestamosActivos" text="Buscar Préstamos Activos" style="-fx-pref-height: 35;" />
+            </children>
+        </HBox>
+
+        <TableView fx:id="tablaDevoluciones" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="colIdDetalle" prefWidth="70.0" text="ID Detalle" />
+                <TableColumn fx:id="colUsuario" prefWidth="200.0" text="Usuario" />
+                <TableColumn fx:id="colLibro" prefWidth="200.0" text="Libro" />
+                <TableColumn fx:id="colFechaPrestamo" prefWidth="120.0" text="Fecha Préstamo" />
+                <TableColumn fx:id="colFechaEsperada" prefWidth="120.0" text="Devolución Límite" />
+                <TableColumn fx:id="colEstado" prefWidth="80.0" text="Estado" />
+            </columns>
+        </TableView>
+
+        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+            <children>
+                <Label fx:id="lblMensaje" textFill="#e74c3c" visible="false" />
+                <Button fx:id="btnMarcarDevuelto" mnemonicParsing="false" onAction="#registrarDevolucion" style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 40;" text="Marcar Seleccionado como Devuelto" />
+            </children>
+        </HBox>
+    </children>
+</VBox>

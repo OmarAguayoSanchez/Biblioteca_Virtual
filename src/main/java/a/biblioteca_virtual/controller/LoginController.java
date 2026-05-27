@@ -1,7 +1,7 @@
 package a.biblioteca_virtual.controller;
 
 import a.biblioteca_virtual.dao.IUsuarioDAO;
-import a.diccionario_examen.factory.DAOFactory;
+import a.biblioteca_virtual.factory.DAOFactory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,7 +24,7 @@ public class LoginController {
     // --- CONSTANTES ---
     private static final int MIN_LONGITUD_PASSWORD = 6;
     private static final String ROL_ADMIN = "ADMIN";
-    private static final String RUTA_MAIN_VIEW = "/a/diccionario_examen/MainView.fxml";
+    private static final String RUTA_MAIN_VIEW = "/a/biblioteca_virtual/MainView.fxml";
 
     // --- VARIABLES DE LA PESTAÑA: REGISTRO ---
     @FXML private TextField txtNombreReg;
@@ -102,17 +102,17 @@ public class LoginController {
         String rolUsuario = usuarioDAO.autenticar(usuario, password);
 
         if (rolUsuario != null) {
+            // 1. Primero abrimos la pantalla principal de forma segura
+            abrirPantallaPrincipal(rolUsuario);
+
+            // 2. Una vez abierta, cerramos la ventana de login
             Stage stageActual = (Stage) txtUsuarioLogin.getScene().getWindow();
             stageActual.close();
-
-            abrirPantallaPrincipal(rolUsuario);
         } else {
             mostrarAlerta("Acceso Denegado", "Usuario o contraseña incorrectos.", Alert.AlertType.ERROR);
             txtPasswordLogin.clear();
         }
-    }
-
-    /**
+    }    /**
      * Carga y muestra la pantalla principal de la aplicación.
      * Configura el título de la ventana dependiendo del rol del usuario autenticado.
      *

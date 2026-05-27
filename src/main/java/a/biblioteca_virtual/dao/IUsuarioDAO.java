@@ -1,5 +1,9 @@
 package a.biblioteca_virtual.dao;
 
+import a.biblioteca_virtual.Model.Usuario;
+
+import java.util.List;
+
 /**
  * Interfaz que define el Login para la clase Usuario.
  * Establece las operaciones necesarias para el control de acceso (login)
@@ -34,4 +38,6 @@ public interface IUsuarioDAO {
      * @return true si el usuario se registró exitosamente, false si ocurrió un error
      */
     boolean registrar(String nombreCompleto, String correo, String username, String passwordPlana, String rol);
+    List<Usuario> obtenerTodos();
+    boolean eliminar(int idUsuario);
 }

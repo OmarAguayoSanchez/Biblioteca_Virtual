@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="a.biblioteca_virtual.controller.MainController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a.biblioteca_virtual.controller.MainController">
 
-</AnchorPane>
+    <left>
+        <VBox prefWidth="250.0" spacing="10.0" style="-fx-background-color: #2c3e50;" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="30.0" />
+            </padding>
+            <children>
+                <Label text="Menú Principal" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Label>
+
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarLibros" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📚 Libros" />
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarUsuarios" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="👥 Usuarios" />
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarPrestamos" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="🔄 Préstamos" />
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarDevoluciones" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="📥 Devoluciones" />
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarAutores" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="✍️ Autores" />
+                <Button maxWidth="1.7976931348623157E308" onAction="#mostrarEditoriales" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-alignment: BASELINE_LEFT;" text="🏢 Editoriales" />
+
+                <VBox VBox.vgrow="ALWAYS" />
+
+                <Button maxWidth="1.7976931348623157E308" onAction="#cerrarSesion" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Cerrar Sesión" />
+            </children>
+        </VBox>
+    </left>
+
+    <center>
+        <StackPane fx:id="contentArea" style="-fx-background-color: #ecf0f1;" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Bienvenido al Sistema de Biblioteca" textFill="#7f8c8d">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </StackPane>
+    </center>
+</BorderPane>

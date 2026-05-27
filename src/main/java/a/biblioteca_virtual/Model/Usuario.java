@@ -113,8 +113,11 @@ public class Usuario {
      *
      * @return Cadena con el nombre de usuario y su rol.
      */
-    @Override
     public String toString() {
-        return String.format("%s [%s]", username, rol);
+        // Esto le dice a JavaFX que muestre el username en el ComboBox
+        return this.username;
+
+        // Nota: Si prefieres que muestre el nombre real, puedes cambiarlo a:
+        // return this.nombreCompleto;
     }
 }

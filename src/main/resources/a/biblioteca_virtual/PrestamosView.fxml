@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="a.biblioteca_virtual.controller.PrestamosController"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #ecf0f1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="a.biblioteca_virtual.controller.PrestamosController">
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
 
-</AnchorPane>
+    <top>
+        <VBox spacing="15.0" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets bottom="20.0" />
+            </BorderPane.margin>
+            <children>
+                <Label text="Nuevo Préstamo">
+                    <font>
+                        <Font name="System Bold" size="24.0" />
+                    </font>
+                </Label>
+
+                <HBox spacing="20.0">
+                    <children>
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="1. Seleccionar Usuario:" />
+                                <ComboBox fx:id="cbUsuario" maxWidth="1.7976931348623157E308" promptText="Buscar lector por nombre o ID..." />
+                            </children>
+                        </VBox>
+
+                        <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                            <children>
+                                <Label text="2. Agregar Libro (ISBN o Título):" />
+                                <HBox spacing="10.0">
+                                    <children>
+                                        <TextField fx:id="txtBuscarLibro" promptText="Ingrese ISBN..." HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="btnAgregarLibro" mnemonicParsing="false" onAction="#agregarLibroAlCarrito" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Agregar" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="10.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="Libros a prestar en este movimiento:">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="tablaCarrito" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colLibroId" prefWidth="50.0" text="ID Libro" />
+                        <TableColumn fx:id="colLibroTitulo" prefWidth="250.0" text="Título del Libro" />
+                        <TableColumn fx:id="colFechaDevolucion" prefWidth="150.0" text="Devolución Esperada" />
+                    </columns>
+                </TableView>
+                <Button fx:id="btnQuitarLibro" mnemonicParsing="false" onAction="#quitarLibroDelCarrito" text="Quitar libro seleccionado" />
+            </children>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="20.0" />
+            </BorderPane.margin>
+            <children>
+                <Button fx:id="btnConfirmarPrestamo" mnemonicParsing="false" onAction="#confirmarPrestamo" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-pref-height: 40; -fx-font-size: 14; -fx-font-weight: bold;" text="Confirmar y Guardar Préstamo" />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>
