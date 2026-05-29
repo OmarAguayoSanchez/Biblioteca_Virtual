@@ -13,6 +13,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Controlador de la interfaz gráfica para la gestión del catálogo de Autores.
+ * Esta clase actúa como intermediario entre la vista gráfica (FXML) y la capa
+ * de acceso a datos (DAO). Se encarga de manejar los eventos del usuario,
+ * validar el formulario y mantener sincronizada la tabla visual con la base de datos.
+ * * @author Omar Alejandro Aguayo Sanchez
+ * @version 1.0
+ */
 public class AutorController {
 
     // --- COMPONENTES DEL FORMULARIO ---
@@ -27,9 +35,17 @@ public class AutorController {
     @FXML private TableColumn<Autor, String> colNacionalidad;
     @FXML private TableColumn<Autor, LocalDate> colFechaNacimiento;
 
+    /** Instancia del DAO para ejecutar las operaciones (CRUD) en la tabla Autores de la base de datos. */
     private IAutorDAO autorDAO;
+
+    /** Lista observable de JavaFX que permite actualizar la tabla gráficamente cuando los datos cambian. */
     private ObservableList<Autor> listaAutores;
 
+    /**
+     * Método invocado automáticamente por JavaFX una vez que el archivo FXML ha sido cargado.
+     * Se encarga de inicializar el DAO desde la fábrica, configurar cómo cada columna
+     * debe leer los atributos de la clase {@link Autor} y realizar la primera carga de datos.
+     */
     @FXML
     public void initialize() {
         // Inicializamos el DAO desde tu fábrica
@@ -45,7 +61,8 @@ public class AutorController {
     }
 
     /**
-     * Carga los datos desde la BD y llena la tabla.
+     * Recupera la lista completa de autores desde la base de datos utilizando el DAO
+     * y actualiza la información mostrada en la tabla visual.
      */
     private void cargarDatos() {
         List<Autor> autores = autorDAO.obtenerTodos();
@@ -56,7 +73,11 @@ public class AutorController {
     }
 
     /**
-     * Captura los datos del formulario (incluyendo el calendario) y los guarda.
+     * Captura los datos ingresados por el usuario en los campos de texto y el calendario,
+     * valida la información, crea una nueva instancia de {@link Autor} y solicita al DAO
+     * que la guarde en la base de datos.
+     *
+     * @param event El evento de acción disparado al presionar el botón "Guardar".
      */
     @FXML
     private void guardarAutor(ActionEvent event) {
@@ -86,7 +107,11 @@ public class AutorController {
     }
 
     /**
-     * Elimina el autor seleccionado de la tabla.
+     * Identifica el autor actualmente seleccionado en la tabla y solicita al DAO
+     * su eliminación permanente de la base de datos.
+     * Si el autor tiene libros asociados, la restricción de llave foránea impedirá el borrado.
+     *
+     * @param event El evento de acción disparado al presionar el botón de eliminar.
      */
     @FXML
     private void eliminarAutor(ActionEvent event) {
@@ -104,7 +129,8 @@ public class AutorController {
     }
 
     /**
-     * Limpia las cajas de texto y el calendario.
+     * Restablece todos los controles del formulario (campos de texto y selectores de fecha)
+     * a su estado inicial, dejándolos vacíos para un nuevo registro.
      */
     @FXML
     private void limpiarFormulario() {
@@ -113,6 +139,13 @@ public class AutorController {
         dpFechaNacimiento.setValue(null);
     }
 
+    /**
+     * Método de utilidad para generar y mostrar cuadros de diálogo en la pantalla.
+     *
+     * @param tipo    El tipo de alerta.
+     * @param titulo  El texto que aparecerá en la barra de título de la ventana.
+     * @param mensaje La descripción detallada del evento que se mostrará al usuario.
+     */
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alerta = new Alert(tipo);
         alerta.setTitle(titulo);

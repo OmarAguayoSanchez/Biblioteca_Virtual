@@ -6,16 +6,28 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementación concreta de la interfaz {@link IDetallePrestamoDAO} para el motor de base de datos.
+ * Esta clase maneja las operaciones (CRUD) para los registros individuales de libros
+ * dentro de un préstamo. Además, resuelve las relaciones complejas entre tablas para
+ * alimentar directamente las vistas.
+ * * @author Sánchez Cuellar Danna Paola
+ * @version 1.0
+ */
 public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
 
+    /**
+     * Inserta un nuevo detalle de préstamo en la base de datos.
+     * Convierte la fecha esperada de devolución de {@link java.time.LocalDate} a {@link java.sql.Date}
+     * para su correcta inserción y asigna un estado por defecto si no se proporciona uno.
+     *
+     * @param detalle El objeto {@link DetallePrestamo} que contiene el ID del préstamo, el ID del libro y la fecha límite.
+     * @return {@code true} si la inserción fue exitosa, {@code false} si ocurrió un error SQL.
+     */
     @Override
     public boolean insertar(DetallePrestamo detalle) {
         String sql = "INSERT INTO Detalle_Prestamo (id_prestamo, id_libro, fecha_devolucion_esperada, estado) VALUES (?, ?, ?, ?)";
-<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
-=======
-        try (Connection con = ConexionMySQL.getConnection();
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, detalle.getIdPrestamo());
@@ -30,14 +42,19 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         }
     }
 
+    /**
+     * Actualiza el estado y la fecha de entrega real de un libro prestado.
+     * Es invocado principalmente al procesar una devolución desde la interfaz gráfica.
+     *
+     * @param idDetalle           El identificador único del registro a actualizar.
+     * @param nuevoEstado         El nuevo estado a asignar (ej. "Devuelto").
+     * @param fechaDevolucionReal La fecha exacta en la que se registra la devolución en el sistema.
+     * @return {@code true} si la actualización modificó el registro, {@code false} en caso de error.
+     */
     @Override
     public boolean actualizarEstado(int idDetalle, String nuevoEstado, java.time.LocalDate fechaDevolucionReal) {
         String sql = "UPDATE Detalle_Prestamo SET estado=?, fecha_devolucion_real=? WHERE id_detalle=?";
-<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
-=======
-        try (Connection con = ConexionMySQL.getConnection();
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, nuevoEstado);
@@ -51,14 +68,16 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         }
     }
 
+    /**
+     * Elimina permanentemente un registro individual de la tabla de detalles de préstamo.
+     *
+     * @param idDetalle El identificador único del registro a eliminar.
+     * @return {@code true} si el registro fue borrado exitosamente, {@code false} en caso de error.
+     */
     @Override
     public boolean eliminar(int idDetalle) {
         String sql = "DELETE FROM Detalle_Prestamo WHERE id_detalle=?";
-<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
-=======
-        try (Connection con = ConexionMySQL.getConnection();
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, idDetalle);
             return ps.executeUpdate() > 0;
@@ -68,15 +87,18 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         }
     }
 
+    /**
+     * Recupera la lista de libros (detalles) asociados a la cabecera de un préstamo específico.
+     * Utiliza un método auxiliar para mapear los resultados básicos de la tabla.
+     *
+     * @param idPrestamo El identificador del préstamo principal.
+     * @return Una lista de objetos {@link DetallePrestamo} pertenecientes a esa transacción.
+     */
     @Override
     public List<DetallePrestamo> buscarPorPrestamo(int idPrestamo) {
         List<DetallePrestamo> lista = new ArrayList<>();
         String sql = "SELECT * FROM Detalle_Prestamo WHERE id_prestamo=?";
-<<<<<<< HEAD
         try (Connection con = ConexionMySQL.getInstancia().getConexion();
-=======
-        try (Connection con = ConexionMySQL.getConnection();
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, idPrestamo);
@@ -89,10 +111,17 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         return lista;
     }
 
+    /**
+     * Recupera todos los libros que se encuentran prestados actualmente (estado 'Activo').
+     * Ejecuta una consulta INNER JOIN compleja que cruza las tablas de Detalles, Préstamos,
+     * Usuarios y Libros para consolidar la información de lectura humana que requiere la tabla
+     * de la pantalla de devoluciones.
+     *
+     * @return Una lista de objetos {@link DetallePrestamo} enriquecidos con datos virtuales (nombres y títulos).
+     */
     @Override
     public List<DetallePrestamo> obtenerDetallesActivos() {
         List<DetallePrestamo> lista = new ArrayList<>();
-<<<<<<< HEAD
 
         // Consulta JOIN con el nombre de columna CORREGIDO (fecha_devolucion_esperada)
         String sql = "SELECT d.id_detalle, d.id_libro, d.fecha_devolucion_esperada, d.estado, " +
@@ -127,20 +156,18 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener detalles activos con JOIN: " + e.getMessage());
-=======
-        String sql = "SELECT * FROM Detalle_Prestamo WHERE estado = 'Activo' OR estado = 'Atrasado'";
-        try (Connection con = ConexionMySQL.getConnection();
-             Statement st = con.createStatement();
-             ResultSet rs = st.executeQuery(sql)) {
-
-            while (rs.next()) lista.add(mapearDetalle(rs));
-        } catch (SQLException e) {
-            System.err.println("Error al obtener detalles activos: " + e.getMessage());
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
         }
         return lista;
     }
 
+    /**
+     * Método auxiliar privado que transforma un registro simple de la tabla "Detalle_Prestamo"
+     * en un objeto Java. Diseñado para centralizar el mapeo de columnas básicas y evitar redundancia.
+     *
+     * @param rs El {@link ResultSet} apuntando a la fila actual extraída de la base de datos.
+     * @return Una nueva instancia de {@link DetallePrestamo} con sus atributos poblados.
+     * @throws SQLException Si ocurre algún error de lectura en las columnas de la tabla.
+     */
     private DetallePrestamo mapearDetalle(ResultSet rs) throws SQLException {
         DetallePrestamo d = new DetallePrestamo();
         d.setIdDetalle(rs.getInt("id_detalle"));
@@ -154,8 +181,4 @@ public class DetallePrestamoDAOMySQL implements IDetallePrestamoDAO {
         d.setEstado(rs.getString("estado"));
         return d;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> a2165958174cb39afffd8e8bb15b63f6f1755d98
